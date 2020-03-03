@@ -5,7 +5,12 @@
 #define STEPPER_PIN_4 12
 int step_number = 0;
 int buttonState = 0;
-bool run = true;
+int count = 0;
+int rotation = 510;
+int testCount = rotation * (1/8);
+
+bool UP = true;
+bool DOWN = false;
 
 void setup() {
 pinMode(STEPPER_PIN_1, OUTPUT);
@@ -16,76 +21,64 @@ pinMode(STEPPER_PIN_4, OUTPUT);
 }
 
 void loop() {
-  if(run==true){
-    OneStep(true);
-    delay(2);
-    //
-  }
-}
-
-
-void OneStep(bool dir){
-    if(dir){
-switch(step_number){
-  case 0:
-  digitalWrite(STEPPER_PIN_1, HIGH);
-  digitalWrite(STEPPER_PIN_2, LOW);
-  digitalWrite(STEPPER_PIN_3, LOW);
-  digitalWrite(STEPPER_PIN_4, LOW);
-  break;
-  case 1:
-  digitalWrite(STEPPER_PIN_1, LOW);
-  digitalWrite(STEPPER_PIN_2, HIGH);
-  digitalWrite(STEPPER_PIN_3, LOW);
-  digitalWrite(STEPPER_PIN_4, LOW);
-  break;
-  case 2:
-  digitalWrite(STEPPER_PIN_1, LOW);
-  digitalWrite(STEPPER_PIN_2, LOW);
-  digitalWrite(STEPPER_PIN_3, HIGH);
-  digitalWrite(STEPPER_PIN_4, LOW);
-  break;
-  case 3:
-  digitalWrite(STEPPER_PIN_1, LOW);
-  digitalWrite(STEPPER_PIN_2, LOW);
-  digitalWrite(STEPPER_PIN_3, LOW);
-  digitalWrite(STEPPER_PIN_4, HIGH);
-  //run = false;
-  break;
-} 
-  }else{
-    switch(step_number){
-  case 0:
-  digitalWrite(STEPPER_PIN_1, LOW);
-  digitalWrite(STEPPER_PIN_2, LOW);
-  digitalWrite(STEPPER_PIN_3, LOW);
-  digitalWrite(STEPPER_PIN_4, HIGH);
-  break;
-  case 1:
-  digitalWrite(STEPPER_PIN_1, LOW);
-  digitalWrite(STEPPER_PIN_2, LOW);
-  digitalWrite(STEPPER_PIN_3, HIGH);
-  digitalWrite(STEPPER_PIN_4, LOW);
-  break;
-  case 2:
-  digitalWrite(STEPPER_PIN_1, LOW);
-  digitalWrite(STEPPER_PIN_2, HIGH);
-  digitalWrite(STEPPER_PIN_3, LOW);
-  digitalWrite(STEPPER_PIN_4, LOW);
-  break;
-  case 3:
-  digitalWrite(STEPPER_PIN_1, HIGH);
-  digitalWrite(STEPPER_PIN_2, LOW);
-  digitalWrite(STEPPER_PIN_3, LOW);
-  digitalWrite(STEPPER_PIN_4, LOW);
-  //run=false;
- 
   
-} 
+  while(count <= (rotation)){
+    move_up();
+    count++;
   }
-step_number++;
-  if(step_number > 3){
-    step_number = 0;
-    run = false;
-  }
+
 }
+
+
+void move_up(){
+  digitalWrite(STEPPER_PIN_1, HIGH);
+  digitalWrite(STEPPER_PIN_2, LOW);
+  digitalWrite(STEPPER_PIN_3, LOW);
+  digitalWrite(STEPPER_PIN_4, LOW);
+  delay(2);
+  
+  digitalWrite(STEPPER_PIN_1, LOW);
+  digitalWrite(STEPPER_PIN_2, HIGH);
+  digitalWrite(STEPPER_PIN_3, LOW);
+  digitalWrite(STEPPER_PIN_4, LOW);
+  delay(2);
+  
+  digitalWrite(STEPPER_PIN_1, LOW);
+  digitalWrite(STEPPER_PIN_2, LOW);
+  digitalWrite(STEPPER_PIN_3, HIGH);
+  digitalWrite(STEPPER_PIN_4, LOW);
+  delay(2);
+  
+  digitalWrite(STEPPER_PIN_1, LOW);
+  digitalWrite(STEPPER_PIN_2, LOW);
+  digitalWrite(STEPPER_PIN_3, LOW);
+  digitalWrite(STEPPER_PIN_4, HIGH);
+  delay(2);
+}
+
+void move_down(){
+  digitalWrite(STEPPER_PIN_1, LOW);
+  digitalWrite(STEPPER_PIN_2, LOW);
+  digitalWrite(STEPPER_PIN_3, LOW);
+  digitalWrite(STEPPER_PIN_4, HIGH);
+  delay(2); 
+
+  digitalWrite(STEPPER_PIN_1, LOW);
+  digitalWrite(STEPPER_PIN_2, LOW);
+  digitalWrite(STEPPER_PIN_3, HIGH);
+  digitalWrite(STEPPER_PIN_4, LOW);
+  delay(2);
+
+  digitalWrite(STEPPER_PIN_1, LOW);
+  digitalWrite(STEPPER_PIN_2, HIGH);
+  digitalWrite(STEPPER_PIN_3, LOW);
+  digitalWrite(STEPPER_PIN_4, LOW);
+  delay(2);
+
+  digitalWrite(STEPPER_PIN_1, HIGH);
+  digitalWrite(STEPPER_PIN_2, LOW);
+  digitalWrite(STEPPER_PIN_3, LOW);
+  digitalWrite(STEPPER_PIN_4, LOW);
+  delay(2);
+}
+
