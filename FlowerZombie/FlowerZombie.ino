@@ -18,6 +18,8 @@ void loop() {
 }
 
 // https://www.arduino.cc/en/Tutorial/StateChangeDetection
+// Read's the number of times the input button has been pressed
+// and then adds to a count if the button has been pressed and moves the rack incrementally
 void read_count_button(){
   countButtonState = digitalRead(COUNT_BUTTON_PIN);
 
@@ -34,6 +36,8 @@ void read_count_button(){
   countLastButtonState = countButtonState;
 }
 
+// Read's if the reset button has been reset
+// and then calls the reset_rack() method to return the rack to it's starting position
 void read_reset_button(){
   resetButtonState = digitalRead(RESET_BUTTON_PIN);
 
@@ -46,7 +50,7 @@ void read_reset_button(){
   resetLastButtonState = resetButtonState;
 }
 
-
+// Method to reset the rack position to the starting position based on how the current count amoun
 void reset_rack(){
     while(count >= 0){
       resetState = true;
@@ -58,8 +62,8 @@ void reset_rack(){
     resetState = false;
 }
 
-
 // Adapted from nikodembartnik.pl by Nikodem Bartnik
+// Method to move the rack up
 void move_down(){
   digitalWrite(STEPPER_PIN_1, HIGH);
   digitalWrite(STEPPER_PIN_2, LOW);
@@ -86,6 +90,8 @@ void move_down(){
   delay(2);
 }
 
+// Adapted from nikodembartnik.pl by Nikodem Bartnik
+// Method to move the rack down
 void move_up(){
   digitalWrite(STEPPER_PIN_1, LOW);
   digitalWrite(STEPPER_PIN_2, LOW);
